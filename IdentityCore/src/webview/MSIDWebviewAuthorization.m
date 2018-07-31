@@ -26,13 +26,14 @@
 //------------------------------------------------------------------------------
 
 #import "MSIDWebviewAuthorization.h"
+#if TARGET_OS_IPHONE && !TARGET_OS_TV
 #import <SafariServices/SafariServices.h>
+#import "MSIDAADOAuthEmbeddedWebviewController.h"
 #import "MSIDSystemWebviewController.h"
+#endif
 #import "MSIDError.h"
 #import "NSURL+MSIDExtensions.h"
 #import "MSIDTelemetry.h"
-#import "MSIDAADOAuthEmbeddedWebviewController.h"
-#import "MSIDSystemWebviewController.h"
 #import "MSIDWebviewFactory.h"
 
 @implementation MSIDWebviewAuthorization
@@ -67,7 +68,7 @@ static MSIDWebviewSession *s_currentSession = nil;
 
 #endif
 
-#if TARGET_OS_IPHONE && !MSID_EXCLUDE_SYSTEMWV
+#if TARGET_OS_IPHONE && !MSID_EXCLUDE_SYSTEMWV && !TARGET_OS_TV
 + (void)startSystemWebviewWebviewAuthWithConfiguration:(MSIDWebviewConfiguration *)configuration
                                          oauth2Factory:(MSIDOauth2Factory *)oauth2Factory
                                                context:(id<MSIDRequestContext>)context
@@ -176,7 +177,7 @@ static MSIDWebviewSession *s_currentSession = nil;
 
 #endif
 
-#if TARGET_OS_IPHONE && !MSID_EXCLUDE_SYSTEMWV
+#if TARGET_OS_IPHONE && !MSID_EXCLUDE_SYSTEMWV && !TARGET_OS_TV
 + (BOOL)handleURLResponseForSystemWebviewController:(NSURL *)url;
 {
     @synchronized([MSIDWebviewAuthorization class])

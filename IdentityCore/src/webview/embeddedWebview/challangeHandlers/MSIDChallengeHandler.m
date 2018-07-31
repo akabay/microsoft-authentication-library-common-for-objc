@@ -22,20 +22,23 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+
 #import "MSIDChallengeHandler.h"
+
 
 static NSMutableDictionary *s_handlers = nil;
 
 @implementation MSIDChallengeHandler
 
 + (void)handleChallenge:(NSURLAuthenticationChallenge *)challenge
-                webview:(WKWebView *)webview
+                //webview:(WKWebView *)webview
                 context:(id<MSIDRequestContext>)context
       completionHandler:(ChallengeCompletionHandler)completionHandler
 {
     NSString *authMethod = [challenge.protectionSpace.authenticationMethod lowercaseString];
-    
+#if !TARGET_OS_TV
     BOOL handled = NO;
+#endif
     Class<MSIDChallengeHandling> handler = nil;
     @synchronized (self)
     {
@@ -47,11 +50,12 @@ static NSMutableDictionary *s_handlers = nil;
         completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
         return;
     }
-    
+#if !TARGET_OS_TV
     handled = [handler handleChallenge:challenge
                                webview:webview
                                context:context
                      completionHandler:completionHandler];
+#endif
 }
 
 + (void)registerHandler:(Class<MSIDChallengeHandling>)handler

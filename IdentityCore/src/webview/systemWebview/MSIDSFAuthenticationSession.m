@@ -34,7 +34,6 @@
 #import "MSIDTelemetry+Internal.h"
 #import "MSIDTelemetryUIEvent.h"
 #import "MSIDTelemetryEventStrings.h"
-
 #import <SafariServices/SafariServices.h>
 
 @implementation MSIDSFAuthenticationSession

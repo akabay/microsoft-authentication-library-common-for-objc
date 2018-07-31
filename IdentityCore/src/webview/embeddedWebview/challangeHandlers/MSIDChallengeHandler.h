@@ -27,7 +27,7 @@
 @interface MSIDChallengeHandler : NSObject
 
 + (void)handleChallenge:(NSURLAuthenticationChallenge *)challenge
-                webview:(WKWebView *)webview
+                //webview:(WKWebView *)webview
                 context:(id<MSIDRequestContext>)context
       completionHandler:(ChallengeCompletionHandler)completionHandler;
 

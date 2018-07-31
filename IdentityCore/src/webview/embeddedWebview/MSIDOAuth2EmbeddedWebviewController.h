@@ -25,13 +25,14 @@
 //
 //------------------------------------------------------------------------------
 
-#if !MSID_EXCLUDE_WEBKIT
+#if !MSID_EXCLUDE_WEBKIT && !TARGET_OS_TV
 
 #import <Foundation/Foundation.h>
-#import <WebKit/WebKit.h>
+
 #import "MSIDWebviewInteracting.h"
 #import "MSIDWebviewUIController.h"
 #import "MSIDWebviewConfiguration.h"
+#import <WebKit/WebKit.h>
 
 @interface MSIDOAuth2EmbeddedWebviewController :
 MSIDWebviewUIController <MSIDWebviewInteracting, WKNavigationDelegate>

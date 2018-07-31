@@ -24,7 +24,7 @@
 #if !MSID_EXCLUDE_WEBKIT
 
 #import <Foundation/Foundation.h>
-#import <WebKit/WebKit.h>
+//#import <WebKit/WebKit.h>
 
 @interface MSIDWebviewUIController :
 #if TARGET_OS_IPHONE

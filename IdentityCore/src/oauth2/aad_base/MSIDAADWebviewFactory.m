@@ -27,7 +27,9 @@
 #import "MSIDWebWPJAuthResponse.h"
 #import "MSIDWebAADAuthResponse.h"
 #import "MSIDDeviceId.h"
+#if !MSID_EXCLUDE_WEBKIT
 #import "MSIDAADOAuthEmbeddedWebviewController.h"
+#endif
 #import "MSIDWebviewSession.h"
 
 @implementation MSIDAADWebviewFactory

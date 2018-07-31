@@ -25,24 +25,27 @@
 #import "MSIDWebviewConfiguration.h"
 #import "MSIDWebOAuth2Response.h"
 #import "MSIDWebviewSession.h"
-#import <WebKit/WebKit.h>
+
 #import "MSIDSystemWebviewController.h"
 #import "MSIDPkce.h"
 #import "NSOrderedSet+MSIDExtensions.h"
-#import "MSIDOAuth2EmbeddedWebviewController.h"
+
+
+
+
 
 @implementation MSIDWebviewFactory
+
 
 #if !MSID_EXCLUDE_WEBKIT
 
 #pragma mark - Webview creation
 
 - (MSIDWebviewSession *)embeddedWebviewSessionFromConfiguration:(MSIDWebviewConfiguration *)configuration customWebview:(WKWebView *)webview context:(id<MSIDRequestContext>)context
-{
+
     NSString *state = [self generateStateValue];
     NSURL *startURL = [self startURLFromConfiguration:configuration requestState:state];
     NSURL *redirectURL = [NSURL URLWithString:configuration.redirectUri];
-    
     MSIDOAuth2EmbeddedWebviewController *embeddedWebviewController
     = [[MSIDOAuth2EmbeddedWebviewController alloc] initWithStartURL:startURL
                                                              endURL:redirectURL
@@ -56,10 +59,13 @@
                                                                             verifyState:configuration.verifyState];
     return session;
 }
-
 #endif
 
-#if TARGET_OS_IPHONE && !MSID_EXCLUDE_SYSTEMWV
+#if TARGET_OS_IPHONE && !MSID_EXCLUDE_SYSTEMWV && !TARGET_OS_TV
+
+#import <WebKit/WebKit.h>
+#import "MSIDOAuth2EmbeddedWebviewController.h"
+
 - (MSIDWebviewSession *)systemWebviewSessionFromConfiguration:(MSIDWebviewConfiguration *)configuration context:(id<MSIDRequestContext>)context
 {
     NSString *state = [self generateStateValue];
@@ -79,7 +85,6 @@
 #endif
 
 #pragma mark - Webview helpers
-
 - (NSMutableDictionary<NSString *, NSString *> *)authorizationParametersFromConfiguration:(MSIDWebviewConfiguration *)configuration
                                                                              requestState:(NSString *)state
 {
@@ -197,5 +202,4 @@
 {
     return [[NSUUID UUID] UUIDString];
 }
-
 @end

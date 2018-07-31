@@ -21,19 +21,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <WebKit/WebKit.h>
+//import <WebKit/WebKit.h>
 #import "MSIDNTLMHandler.h"
 #import "MSIDChallengeHandler.h"
 #import "MSIDNTLMUIPrompt.h"
 
 @implementation MSIDNTLMHandler
 
+#if !TARGET_OS_TV
 + (void)load
+
 {
     [MSIDChallengeHandler registerHandler:self
                                authMethod:NSURLAuthenticationMethodNTLM];
 }
+#endif
 
+#if !TARGET_OS_TV
 + (void)resetHandler
 {
     @synchronized(self)
@@ -41,11 +45,14 @@
         [MSIDNTLMUIPrompt dismissPrompt];
     }
 }
+#endif
 
+#if !TARGET_OS_TV
 + (BOOL)handleChallenge:(NSURLAuthenticationChallenge *)challenge
                 webview:(WKWebView *)webview
                 context:(id<MSIDRequestContext>)context
       completionHandler:(ChallengeCompletionHandler)completionHandler
+
 {
     @synchronized(self)
     {
@@ -77,6 +84,15 @@
     }//@synchronized
     
     return YES;
+}
+#endif
+
++ (BOOL)handleChallenge:(NSURLAuthenticationChallenge *)challenge context:(id<MSIDRequestContext>)context completionHandler:(ChallengeCompletionHandler)completionHandler { 
+    <#code#>
+}
+
++ (void)resetHandler { 
+    <#code#>
 }
 
 @end

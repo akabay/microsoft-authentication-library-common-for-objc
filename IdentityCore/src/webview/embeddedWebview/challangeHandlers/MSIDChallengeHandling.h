@@ -24,15 +24,19 @@
 // THE SOFTWARE.
 //
 //------------------------------------------------------------------------------
+#if !TARGET_OS_TV
 
 #import <WebKit/WebKit.h>
+
+#endif
+
 
 typedef void (^ChallengeCompletionHandler)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential);
 
 @protocol MSIDChallengeHandling
 
 + (BOOL)handleChallenge:(NSURLAuthenticationChallenge *)challenge
-                webview:(WKWebView *)webview
+                //webview:(WKWebView *)webview
                 context:(id<MSIDRequestContext>)context
       completionHandler:(ChallengeCompletionHandler)completionHandler;
 
